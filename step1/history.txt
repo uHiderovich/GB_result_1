@@ -1,0 +1,69 @@
+  603  ll
+  604  ll gb
+  605  mkdir gb-result
+  606  cd gb-result
+  607  cat > Домашние животные
+  608  cat > "Домашние животные"
+  609  сat "Домашние животные" 
+  610  сut "Домашние животные" 
+  611  сat "Домашние животные" 
+  612  cat "Домашние животные" 
+  613  cat > "Вьючные животные" 
+  614  ll
+  615  rm Домашние
+  616  ll
+  617  cat "Домашние животные" "Вьючные животные" > "
+"Животные"
+
+
+
+  618  ll
+  619  cat "Домашние животные" "Вьючные животные" > "Животные"
+  620  ll
+  621  cat Животные 
+  622  rm Животные \
+  623  rm Животные
+  624  ll
+  625  cat "Домашние животные" "Вьючные животные" > "Животные"
+  626  mv Животные "Друзья человека"
+  627  ll
+  628  mkdir animals
+  629  mv "Друзья человека" animals/
+  630  ll
+  631  ll animals/
+  632  sudo apt update 
+  633  wget https://dev.mysql.com/get/mysql-apt-config_0.8.22-1_all.deb
+  634  sudo dpkg -i mysql-apt-config_0.8.22-1_all.deb
+  635  ll
+  636  sudo dpkg -i mysql-apt-config_0.8.22-1_all.deb 
+  637  sudo apt list mysql*
+  638  cd ~
+  639  sudo apt list mysql*
+  640  sudo apt install -f mysql-client-8.0 mysql-server-8.0
+  641  apt --fix-broken install
+  642  sudo apt --fix-broken install
+  643  sudo apt install -f mysql-client-8.0 mysql-server-8.0
+  644  mysql --version
+  645  sudo dpkg -i --force-depends google-chrome-stable_current_amd64.deb
+  646  ll
+  647  cd gb-result/
+  648  wget https://dl.google.com/linux/direct/google-chrome-unstable_current_amd64.deb
+  649  sudo dpkg -i --force-depends google-chrome-stable_current_amd64.deb
+  650  wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  651  rm google-chrome-unstable_current_amd64.deb 
+  652  sudo dpkg -i --force-depends google-chrome-stable_current_amd64.deb
+  653  sudo dpkg -r google-chrome-stable_current_amd64
+  654  sudo dpkg -r google-chrome-stable_current_amd64.deb
+  655  sudo apt list
+  656  sudo apt list google*\
+  657  sudo apt list google*
+  658  sudo apt list google
+  659  sudo apt list --installed 
+  660  sudo dpkg -get-selections | grep google
+  661  sudo dpkg --get-selections | grep google
+  662  sudo dpkg -r google-chrome-stable
+  663  cat ~/.bash_history 
+  664  less ~/.bash_history 
+  665  history 
+  666  history 65
+  667  history 65 > history.txt
