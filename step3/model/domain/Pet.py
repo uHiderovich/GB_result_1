@@ -1,4 +1,4 @@
-from model.HumanFriendsAnimal import HumanFriendsAnimal
+from model.domain.HumanFriendsAnimal import HumanFriendsAnimal
 
 
 class Pet(HumanFriendsAnimal):

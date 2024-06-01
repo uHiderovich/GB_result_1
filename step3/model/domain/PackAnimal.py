@@ -1,5 +1,5 @@
-from model.HumanFriendsAnimal import HumanFriendsAnimal
-from model.Task import Task
+from model.domain.HumanFriendsAnimal import HumanFriendsAnimal
+from model.domain.Task import Task
 
 
 class PackAnimal(HumanFriendsAnimal):

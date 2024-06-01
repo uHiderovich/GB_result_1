@@ -1,5 +1,5 @@
-from model.Animal import Animal
-from model.Command import Command
+from model.domain.Animal import Animal
+from model.domain.Command import Command
 
 
 class HumanFriendsAnimal(Animal):
