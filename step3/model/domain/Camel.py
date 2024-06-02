@@ -1,13 +1,9 @@
-import itertools
 from model.domain.Pet import Pet
 
 
 class Camel(Pet):
-    id_iter = itertools.count()
-
     def __init__(self, name, age, gender, place_residence):
         super().__init__(name, age, 'herbivore', gender, place_residence)
-        self.id = next(Camel.id_iter)
 
     def neigh(self):
         print(f"{self.name} ржет")

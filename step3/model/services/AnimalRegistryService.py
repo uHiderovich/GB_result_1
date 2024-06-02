@@ -16,9 +16,9 @@ class AnimalRegistryService:
         animal = self.create_animal(animal_type, name, age, gender, place_residence)
 
         if self.is_pet(animal_type):
-            self.pets[animal.id] = animal
+            self.pets[animal.get_id()] = animal
         if self.pack_animal(animal_type):
-            self.pack_animals[animal.id] = animal
+            self.pack_animals[animal.get_id()] = animal
 
         self.all_animals.append(animal)
 

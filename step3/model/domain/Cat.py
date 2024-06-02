@@ -1,13 +1,9 @@
-import itertools
 from model.domain.Pet import Pet
 
 
 class Cat(Pet):
-    id_iter = itertools.count()
-
     def __init__(self, name, age, gender, place_residence):
         super().__init__(name, age, 'predator', gender, place_residence)
-        self.id = next(Cat.id_iter)
 
     def meow(self):
         print(f"{self.name} мяукает")

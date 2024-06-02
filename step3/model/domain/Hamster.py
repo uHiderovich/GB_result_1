@@ -1,13 +1,9 @@
-import itertools
 from model.domain.Pet import Pet
 
 
 class Hamster(Pet):
-    id_iter = itertools.count()
-
     def __init__(self, name, age, gender, place_residence):
         super().__init__(name, age, 'herbivore', gender, place_residence)
-        self.id = next(Hamster.id_iter)
 
     def squeak(self):
         print(f"{self.name} пищит")

@@ -1,13 +1,20 @@
+import itertools
 from model.domain.Animal import Animal
 from model.domain.Command import Command
 
 
 class HumanFriendsAnimal(Animal):
+    _id_iter = itertools.count()
+
     def __init__(self, name, age, food_type, gender, place_residence):
         super().__init__(age, food_type, gender)
+        self._id = next(HumanFriendsAnimal._id_iter)
         self.name = name
         self.place_residence = place_residence
         self.commands = {}
+
+    def get_id(self):
+        return self._id
 
     def set_name(self, name):
         self.name = name
