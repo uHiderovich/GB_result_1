@@ -1,7 +1,7 @@
 import itertools
 from model.domain.Animal import Animal
 from model.domain.Command import Command
-from model.exeptions.AddCommandException import AddCommandException
+from model.exeptions.CommandException import CommandException
 
 
 class HumanFriendsAnimal(Animal):
@@ -34,18 +34,17 @@ class HumanFriendsAnimal(Animal):
         self.place_residence = place_residence
 
     def add_command(self, command_name):
-        if not self.commands[command_name]:
-            self.commands[command_name] = Command(command_name)
-        raise AddCommandException(f"Команда {command_name} уже существует")
+        if self.commands[command_name]:
+            raise CommandException(f"Команда {command_name} уже существует")
+        self.commands[command_name] = Command(command_name)
 
     def get_commands(self):
         return list(self.commands.values())
 
     def do_command(self, command_name):
-        if self.commands[command_name]:
-            self.commands[command_name].do()
-            return
-        print(f"Команда {command_name} не найдена")
+        if not self.commands[command_name]:
+            raise CommandException(f"Команда {command_name} не найдена")
+        self.commands[command_name].do()
 
     def make_sound(self):
         raise NotImplementedError("Дочерний класс должен реализовать этот метод")

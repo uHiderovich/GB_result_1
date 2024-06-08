@@ -64,6 +64,3 @@ class AnimalRegistryService:
             if animal.get_id() == animal_id:
                 return animal
         raise FindAnimalException(f"Животное с id {animal_id} не найдено!")
-
-    def update_animal(self, animal_id, animal):
-        pass

@@ -1,5 +1,6 @@
 from model.domain.HumanFriendsAnimal import HumanFriendsAnimal
 from model.domain.Task import Task
+from model.exeptions.CommandException import CommandException
 
 
 class PackAnimal(HumanFriendsAnimal):
@@ -10,34 +11,28 @@ class PackAnimal(HumanFriendsAnimal):
 
     def add_task(self, task_name):
         if self.tasks[task_name]:
-            print(f"Задача {task_name} уже существует")
-            return
+            raise CommandException(f"Задача {task_name} уже существует")
         self.tasks[task_name] = Task(task_name)
 
     def get_tasks(self):
         return list(self.tasks.values())
 
     def do_task(self, task_name):
-        if self.current_task:
-            self.current_task.stop()
-        if self.tasks[task_name]:
-            self.tasks[task_name].do()
-            self.current_task = self.tasks[task_name]
-            return
-        print(f"Задача {task_name} не найдена")
+        if not self.tasks[task_name]:
+            raise CommandException(f"Задача {task_name} не найдена")
+        self.stop_current_task()
+        self.tasks[task_name].do()
+        self.current_task = self.tasks[task_name]
 
     def stop_current_task(self):
         if self.current_task:
             self.current_task.stop()
             self.current_task = None
-        else:
-            print("Нет текущей задачи")
 
     def remove_task(self, task_name):
-        if self.tasks[task_name]:
-            del self.tasks[task_name]
-            return
-        print(f"Задача {task_name} не найдена")
+        if not self.tasks[task_name]:
+            raise CommandException(f"Задача {task_name} не найдена")
+        del self.tasks[task_name]
 
     def make_sound(self):
         raise NotImplementedError("Дочерний класс должен реализовать этот метод")
