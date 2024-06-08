@@ -14,7 +14,7 @@ class AnimalCommandsBehaviourController:
             self.__commands_view.print_message(error.message)
 
     def show_all_command_of_animal(self, animal):
-        self.__view.print_commands_of_animal(animal.get_commands())
+        self.__commands_view.print_commands_of_animal(animal.get_commands())
 
     def do_command(self, animal):
         try:

@@ -42,7 +42,7 @@ class AnimalRegistryView(AnimalCommandsBehaviourView, AnimalTasksBehaviourView):
         print('-------------------')
         print('Список животных:')
         for animal in animals:
-            print(f"ID: {animal.get_id()}, " + animal)
+            print(f"ID: {animal.get_id()}, {animal}")
         print('-------------------')
 
     def print_selected_animal(self, animal):
@@ -53,15 +53,15 @@ class AnimalRegistryView(AnimalCommandsBehaviourView, AnimalTasksBehaviourView):
         return int(self.prompt('Введите id животного: '))
 
     def get_animal_info_for_add(self):
-        animal_type = self.prompt("Введите тип животного").lower()
-        name = self.prompt("Введите имя")
-        age = int(self.prompt("Введите возраст"))
-        gender = int(self.prompt("Введите пол"))
-        place_residence = int(self.prompt("Введите место проживания"))
+        animal_type = self.prompt("Введите тип животного: ").lower()
+        name = self.prompt("Введите имя: ")
+        age = int(self.prompt("Введите возраст: "))
+        gender = self.prompt("Введите пол: ")
+        place_residence = self.prompt("Введите место проживания: ")
         return animal_type, name, age, gender, place_residence
 
     def print_add_success(self, animal):
-        print(f'Животное {animal} успешно добавлено!')
+        print(f'Животное: {animal} успешно добавлено!')
 
     def prompt(self, message):
         return input(message)

@@ -3,7 +3,11 @@ from model.domain.Pet import Pet
 
 class Donkey(Pet):
     def __init__(self, name, age, gender, place_residence):
-        super().__init__(name, age, 'herbivore', gender, place_residence)
+        super().__init__(name, age, 'трава', gender, place_residence)
+        self.__gender_type = 'Осёл' if self.gender == 'male' else 'Ослиха'
+
+    def __str__(self):
+        return f"{self.__gender_type} {self.name}"
 
     def neigh(self):
         print(f"{self.name} ржет")
@@ -17,6 +21,5 @@ class Donkey(Pet):
     def eat(self):
         print(f"{self.name} ест")
 
-    def __str__(self):
-        gender_type = 'Осёл' if self.gender == 'male' else 'Ослиха'
-        return f"{gender_type} {self.name}"
+    def full_info(self):
+        return f"{self.__gender_type} \n {super().full_info()}"

@@ -92,4 +92,3 @@ class AnimalRegistryController(AnimalCommandsBehaviourController, AnimalTasksBeh
                 exit()
             else:
                 self.__view.prind_error_command()
-                self.start()

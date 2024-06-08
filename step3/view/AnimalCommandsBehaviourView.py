@@ -11,8 +11,11 @@ class AnimalCommandsBehaviourView:
         return input(f"Какую команду должен выполнить {animal}: ")
 
     def print_commands_of_animal(self, commands):
-        for command in commands:
-            print(command)
+        if len(commands) == 0:
+            print("Список доступных команд пока что пуст:(")
+        else:
+            for command in commands:
+                print(command)
 
     def print_message(self, message):
         print(message)

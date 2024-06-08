@@ -3,7 +3,11 @@ from model.domain.Pet import Pet
 
 class Hamster(Pet):
     def __init__(self, name, age, gender, place_residence):
-        super().__init__(name, age, 'herbivore', gender, place_residence)
+        super().__init__(name, age, 'зерно', gender, place_residence)
+        self.__gender_type = 'Хомяк' if self.gender == 'male' else 'Хомячиха'
+
+    def __str__(self):
+        return f"{self.__gender_type} {self.name}"
 
     def squeak(self):
         print(f"{self.name} пищит")
@@ -20,6 +24,5 @@ class Hamster(Pet):
     def eat(self):
         print(f"{self.name} ест")
 
-    def __str__(self):
-        gender_type = 'Хомяк' if self.gender == 'male' else 'Хомячиха'
-        return f"{gender_type} {self.name}"
+    def full_info(self):
+        return f"{self.__gender_type} \n {super().full_info()}"

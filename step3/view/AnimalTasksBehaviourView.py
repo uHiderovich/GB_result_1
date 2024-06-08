@@ -11,8 +11,11 @@ class AnimalTasksBehaviourView:
         return input(f"Какую задачу должен выполнять {animal}: ")
 
     def print_tasks_of_animal(self, tasks):
-        for task in tasks:
-            print(task)
+        if len(tasks) == 0:
+            print("Список задач пока что пуст:(")
+        else:
+            for task in tasks:
+                print(task)
 
     def print_message(self, message):
         print(message)

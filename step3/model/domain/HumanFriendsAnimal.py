@@ -23,18 +23,18 @@ class HumanFriendsAnimal(Animal):
     def get_name(self):
         return self.name
 
-    def __str__(self):
-        return (f"Имя: {self.name}, "
-                f"Возраст: {self.age}, "
-                f"Люит кушать: {self.food_type}, "
-                f"Пол: {self.gender}, "
-                f"Место жительства: {self.place_residence}")
+    def full_info(self):
+        return (f"Имя: {self.name}, \n"
+                f"Возраст: {self.age}, \n"
+                f"Любит кушать: {self.food_type}, \n"
+                f"Пол: {self.gender}, \n"
+                f"Место жительства: {self.place_residence}\n")
 
     def set_place_residence(self, place_residence):
         self.place_residence = place_residence
 
     def add_command(self, command_name):
-        if self.commands[command_name]:
+        if self.commands.get(command_name, None):
             raise CommandException(f"Команда {command_name} уже существует")
         self.commands[command_name] = Command(command_name)
 
@@ -42,7 +42,7 @@ class HumanFriendsAnimal(Animal):
         return list(self.commands.values())
 
     def do_command(self, command_name):
-        if not self.commands[command_name]:
+        if not self.commands.get(command_name, None):
             raise CommandException(f"Команда {command_name} не найдена")
         self.commands[command_name].do()
 
