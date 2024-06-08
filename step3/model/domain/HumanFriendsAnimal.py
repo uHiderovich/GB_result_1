@@ -1,6 +1,7 @@
 import itertools
 from model.domain.Animal import Animal
 from model.domain.Command import Command
+from model.exeptions.AddCommandException import AddCommandException
 
 
 class HumanFriendsAnimal(Animal):
@@ -33,10 +34,9 @@ class HumanFriendsAnimal(Animal):
         self.place_residence = place_residence
 
     def add_command(self, command_name):
-        if self.commands[command_name]:
-            print(f"Команда {command_name} уже существует")
-            return
-        self.commands[command_name] = Command(command_name)
+        if not self.commands[command_name]:
+            self.commands[command_name] = Command(command_name)
+        raise AddCommandException(f"Команда {command_name} уже существует")
 
     def get_commands(self):
         return list(self.commands.values())

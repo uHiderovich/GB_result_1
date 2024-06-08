@@ -27,8 +27,9 @@ class AnimalRegistryView:
         print('2. show_all_commands для просмотра всех команд')
         print('3. add_task для добавления новой задачи')
         print('4. show_all_tasks для просмотра всех задач')
-        print('5. main для возврата в главное меню')
-        print('6. exit для выхода из программы')
+        print('5. do_task для изменения текущей задачи')
+        print('6. main для возврата в главное меню')
+        print('7. exit для выхода из программы')
         print('-------------------')
 
     def get_command(self):
@@ -45,11 +46,15 @@ class AnimalRegistryView:
         print('Выбранное животное: ')
         print(f"ID: {animal.get_id()}, {animal}")
 
+    def print_commands_of_animal(self, commands):
+        for command in commands:
+            print(command)
+
     def get_animal_id(self):
         return int(self.prompt('Введите id животного: '))
 
     def get_animal_info_for_add(self):
-        animal_type = self.prompt("Введите тип животного")
+        animal_type = self.prompt("Введите тип животного").lower()
         name = self.prompt("Введите имя")
         age = int(self.prompt("Введите возраст"))
         gender = int(self.prompt("Введите пол"))
@@ -61,6 +66,9 @@ class AnimalRegistryView:
 
     def prind_error_command(self):
         print('Нет такой команды!')
+
+    def print_add_command(self):
+        return self.prompt("Ввведите название команды: ")
 
     def prompt(self, message):
         return input(message)

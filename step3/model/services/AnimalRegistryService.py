@@ -14,6 +14,8 @@ class AnimalRegistryService:
         self.__pets = {}
         self.__pack_animals = {}
         self.__all_animals = []
+        self.__pets_types = ['dog', 'cat', 'hamster']
+        self.__pack_animals_types = ['horse', 'camel', 'donkey']
 
     def register_animal(self, animal_type, name, age, gender, place_residence):
         animal = self.animal_factory(animal_type, name, age, gender, place_residence)
@@ -23,7 +25,7 @@ class AnimalRegistryService:
 
         if self.is_pet(animal_type):
             self.__pets[animal.get_id()] = animal
-        if self.pack_animal(animal_type):
+        if self.is_pack(animal_type):
             self.__pack_animals[animal.get_id()] = animal
 
         self.__all_animals.append(animal)
@@ -49,10 +51,13 @@ class AnimalRegistryService:
         return self.__all_animals
 
     def is_pet(self, animal_type):
-        return animal_type in ['dog', 'cat', 'hamster']
+        return animal_type in self.__pets_types
 
-    def pack_animal(self, animal_type):
-        return animal_type in ['horse', 'camel', 'donkey']
+    def is_pack(self, animal_type):
+        return animal_type in self.__pack_animals_types
+
+    def get_animal_type(self, animal):
+        return type(animal).__name__.lower()
 
     def get_animal_by_id(self, animal_id):
         for animal in self.__all_animals:

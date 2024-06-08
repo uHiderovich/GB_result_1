@@ -1,7 +1,8 @@
-from model.exeptions.FindAnimalException import FindAnimalException
 from model.services.AnimalRegistryService import AnimalRegistryService
 from view.AnimalRegistryView import AnimalRegistryView
 
+from model.exeptions.AddCommandException import AddCommandException
+from model.exeptions.FindAnimalException import FindAnimalException
 from model.exeptions.CreateAnimalException import CreateAnimalException
 
 
@@ -17,9 +18,6 @@ class AnimalRegistryController:
         except CreateAnimalException as error:
             self.animal_registry_view.print_message(error.message)
 
-    def get_animal(self, animal_id):
-        return self.animal_registry_service.get_animal(animal_id)
-
     def get_all_animals(self):
         return self.animal_registry_service.get_all_animals()
 
@@ -34,26 +32,76 @@ class AnimalRegistryController:
         all_animals = self.animal_registry_service.get_all_animals()
         self.animal_registry_view.print_animals(all_animals)
 
-    def find_animal(self):
+    def show_animal(self):
         animal_id = self.animal_registry_view.get_animal_id()
         try:
             animal = self.animal_registry_service.get_animal_by_id(animal_id)
+            if self.animal_registry_service.is_pet(self.animal_registry_service.get_animal_type(animal)):
+                self.update_pet(animal)
+            elif self.animal_registry_service.is_pack(self.animal_registry_service.get_animal_type(animal)):
+                self.update_pack(animal)
         except FindAnimalException as error:
             self.animal_registry_view.print_message(error.message)
 
+    def add_command_for_animal(self, animal):
+        try:
+            command_name = self.animal_registry_view.print_add_command()
+            animal.add_command(command_name)
+        except AddCommandException as error:
+            self.animal_registry_view.print_message(error.message)
+
+    def show_all_command_of_animal(self, animal):
+        self.animal_registry_view.print_commands_of_animal(animal.get_commands())
+
+    def update_pet(self, animal):
+        self.animal_registry_view.print_pet_menu(animal)
+        while True:
+            command = self.animal_registry_view.get_command()
+            if command == 'add_command':
+                self.add_command_for_animal(animal)
+            elif command == 'show_all_commands':
+                self.show_all_command_of_animal(animal)
+            elif command == 'main':
+                self.start()
+                break
+            elif command == 'exit':
+                exit()
+            else:
+                self.animal_registry_view.prind_error_command()
+                self.update_pet(animal)
+
+    def update_pack(self, animal):
+        self.animal_registry_view.print_pack_animal_menu(animal)
+        while True:
+            command = self.animal_registry_view.get_command()
+            if command == 'add_command':
+                self.add_command_for_animal(animal)
+            elif command == 'show_all_commands':
+                self.show_all_command_of_animal(animal)
+            elif command == 'add_task':
+                break
+            elif command == 'show_all_tasks':
+                break
+            elif command == 'do_task':
+                break
+            elif command == 'mian':
+                self.start()
+            elif command == 'exit':
+                exit()
+            else:
+                self.animal_registry_view.prind_error_command()
+                self.update_pack(animal)
+
     def start(self):
         self.animal_registry_view.print_menu()
-        command = self.animal_registry_view.get_command()
-
         while True:
+            command = self.animal_registry_view.get_command()
             if command == 'add':
                 self.add_animal()
-                break
             elif command == 'show_all':
                 self.show_all()
-                break
             elif command == 'show_by_id':
-                self.find_animal()
+                self.show_animal()
                 break
             elif command == 'exit':
                 exit()
