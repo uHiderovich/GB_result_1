@@ -3,8 +3,8 @@ from model.domain.Task import Task
 
 
 class PackAnimal(HumanFriendsAnimal):
-    def __init__(self, name, age, food_type, gender):
-        super().__init__(name, age, food_type, gender)
+    def __init__(self, name, age, food_type, gender, place_residence):
+        super().__init__(name, age, food_type, gender, place_residence)
         self.tasks = {}
         self.current_task = None
 

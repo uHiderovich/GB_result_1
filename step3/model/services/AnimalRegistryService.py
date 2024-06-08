@@ -5,45 +5,48 @@ from model.domain.Horse import Horse
 from model.domain.Camel import Camel
 from model.domain.Donkey import Donkey
 
+from model.exeptions.CreateAnimalException import CreateAnimalException
+from model.exeptions.FindAnimalException import FindAnimalException
+
 
 class AnimalRegistryService:
     def __init__(self):
-        self.pets = {}
-        self.pack_animals = {}
-        self.all_animals = []
+        self.__pets = {}
+        self.__pack_animals = {}
+        self.__all_animals = []
 
     def register_animal(self, animal_type, name, age, gender, place_residence):
-        animal = self.create_animal(animal_type, name, age, gender, place_residence)
+        animal = self.animal_factory(animal_type, name, age, gender, place_residence)
+
+        if not animal:
+            raise CreateAnimalException("Не известный тип животного")
 
         if self.is_pet(animal_type):
-            self.pets[animal.get_id()] = animal
+            self.__pets[animal.get_id()] = animal
         if self.pack_animal(animal_type):
-            self.pack_animals[animal.get_id()] = animal
+            self.__pack_animals[animal.get_id()] = animal
 
-        self.all_animals.append(animal)
-
+        self.__all_animals.append(animal)
         return animal
 
-    def create_animal(self, animal_type, name, age, gender, place_residence):
-        animal = None
+    def animal_factory(self, animal_type, name, age, gender, place_residence):
         if animal_type == 'dog':
-            animal = Dog(name, age, gender, place_residence)
+            return Dog(name, age, gender, place_residence)
         elif animal_type == 'cat':
-            animal = Cat(name, age, gender, place_residence)
+            return Cat(name, age, gender, place_residence)
         if animal_type == 'hamster':
-            animal = Hamster(name, age, gender, place_residence)
+            return Hamster(name, age, gender, place_residence)
         elif animal_type == 'horse':
-            animal = Horse(name, age, gender, place_residence)
+            return Horse(name, age, gender, place_residence)
         if animal_type == 'camel':
-            animal = Camel(name, age, gender, place_residence)
+            return Camel(name, age, gender, place_residence)
         elif animal_type == 'donkey':
-            animal = Donkey(name, age, gender, place_residence)
+            return Donkey(name, age, gender, place_residence)
         else:
-            animal = None
-        return animal
+            return None
 
     def get_all_animals(self):
-        return self.all_animals
+        return self.__all_animals
 
     def is_pet(self, animal_type):
         return animal_type in ['dog', 'cat', 'hamster']
@@ -51,8 +54,11 @@ class AnimalRegistryService:
     def pack_animal(self, animal_type):
         return animal_type in ['horse', 'camel', 'donkey']
 
-    def get_animal(self, animal_id):
-        pass
+    def get_animal_by_id(self, animal_id):
+        for animal in self.__all_animals:
+            if animal.get_id() == animal_id:
+                return animal
+        raise FindAnimalException(f"Животное с id {animal_id} не найдено!")
 
     def update_animal(self, animal_id, animal):
         pass

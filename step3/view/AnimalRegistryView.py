@@ -16,7 +16,7 @@ class AnimalRegistryView:
         self.print_selected_animal(animal)
         print('1. add_command для добавления новой команды')
         print('2. show_all_commands для просмотра всех команд')
-        print('3. exit для выхода из программы')
+        print('3. main для возврата в главное меню')
         print('4. exit для выхода из программы')
         print('-------------------')
 
@@ -27,7 +27,8 @@ class AnimalRegistryView:
         print('2. show_all_commands для просмотра всех команд')
         print('3. add_task для добавления новой задачи')
         print('4. show_all_tasks для просмотра всех задач')
-        print('5. exit для выхода из программы')
+        print('5. main для возврата в главное меню')
+        print('6. exit для выхода из программы')
         print('-------------------')
 
     def get_command(self):
@@ -48,16 +49,24 @@ class AnimalRegistryView:
         return int(self.prompt('Введите id животного: '))
 
     def get_animal_info_for_add(self):
-        return self.prompt(f'Введите данные животного для добавления в формате: имя, возраст, пол, место проживания')
+        animal_type = self.prompt("Введите тип животного")
+        name = self.prompt("Введите имя")
+        age = int(self.prompt("Введите возраст"))
+        gender = int(self.prompt("Введите пол"))
+        place_residence = int(self.prompt("Введите место проживания"))
+        return animal_type, name, age, gender, place_residence
 
-    def print_add_success(self):
-        print('Животное успешно добавлено!')
+    def print_add_success(self, animal):
+        print(f'Животное {animal} успешно добавлено!')
 
     def prind_error_command(self):
         print('Нет такой команды!')
 
     def prompt(self, message):
         return input(message)
+
+    def print_message(self, message):
+        print(message)
 
     def print_exit(self):
         print('Выход из программы')

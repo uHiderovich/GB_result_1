@@ -19,6 +19,9 @@ class HumanFriendsAnimal(Animal):
     def set_name(self, name):
         self.name = name
 
+    def get_name(self):
+        return self.name
+
     def __str__(self):
         return (f"Имя: {self.name}, "
                 f"Возраст: {self.age}, "
