@@ -18,8 +18,11 @@ class AnimalTasksBehaviourController:
         try:
             task_name = self.__tasks_view.print_add_task()
             animal.add_task(task_name)
+            self.__tasks_view.print_add_task_success(task_name)
         except CommandException as error:
             self.__tasks_view.print_message(error.message)
+        except Exception as error:
+            self.__tasks_view.print_message(error)
 
     def show_all_tasks_of_animal(self, animal):
         """
@@ -40,3 +43,5 @@ class AnimalTasksBehaviourController:
             animal.do_task(task_for_animal)
         except CommandException as error:
             self.__tasks_view.print_message(error.message)
+        except Exception as error:
+            self.__tasks_view.print_message(error)

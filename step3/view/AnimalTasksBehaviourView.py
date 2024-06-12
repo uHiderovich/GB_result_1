@@ -7,6 +7,9 @@ class AnimalTasksBehaviourView:
     def print_add_task(self):
         return input("Ввведите название задача: ")
 
+    def print_add_task_success(self, task):
+        print(f"Задача {task} успешно добавлена")
+
     def print_how_task(self, animal):
         return input(f"Какую задачу должен выполнять {animal}: ")
 

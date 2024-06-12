@@ -33,16 +33,13 @@ class AnimalRegistryService:
         """
         try:
             animal = self.animal_factory(animal_type, name, age, gender, place_residence)
-
             if self.is_pet(animal_type):
                 self.__pets[animal.get_id()] = animal
             if self.is_pack(animal_type):
                 self.__pack_animals[animal.get_id()] = animal
-
             self.__all_animals.append(animal)
-
             return animal
-        except CreateAnimalException as error:
+        except Exception as error:
             raise error
 
     def animal_factory(self, animal_type, name, age, gender, place_residence):
@@ -158,11 +155,11 @@ class AnimalRegistryService:
         """
         if not age.isdigit():
             return "Возраст домашнего животного должен быть числом"
-        elif age < 0:
+        elif int(age) < 0:
             return "Возраст домашнего животного не может быть отрицательным"
-        elif self.is_pet(animal_type) and age > 20:
+        elif self.is_pet(animal_type) and int(age) > 20:
             return "Домашнее животное не может быть старше 20 лет"
-        elif self.is_pack(animal_type) and age > 30:
+        elif self.is_pack(animal_type) and int(age) > 30:
             return "Рабочее животное не может быть старше 30 лет"
         else:
             return None

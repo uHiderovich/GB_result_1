@@ -18,8 +18,11 @@ class AnimalCommandsBehaviourController:
         try:
             command_name = self.__commands_view.print_add_command()
             animal.add_command(command_name)
+            self.__commands_view.print_add_command_success(command_name)
         except CommandException as error:
             self.__commands_view.print_message(error.message)
+        except Exception as error:
+            self.__commands_view.print_message(error)
 
     def show_all_command_of_animal(self, animal):
         """
@@ -40,3 +43,5 @@ class AnimalCommandsBehaviourController:
             animal.do_command(command_for_animal)
         except CommandException as error:
             self.__commands_view.print_message(error.message)
+        except Exception as error:
+            self.__commands_view.print_message(error)

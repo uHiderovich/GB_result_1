@@ -21,16 +21,18 @@ class AnimalRegistryController(AnimalCommandsBehaviourController, AnimalTasksBeh
         Метод для регистрации животного
         :return: None
         """
-        animal_type = self.get_animal_type()
-        name = self.get_animal_name()
-        age = self.get_animal_age(animal_type)
-        gender = self.get_animal_gender()
-        place_residence = self.get_animal_place_residence()
         try:
+            animal_type = self.get_animal_type()
+            name = self.get_animal_name()
+            age = self.get_animal_age(animal_type)
+            gender = self.get_animal_gender()
+            place_residence = self.get_animal_place_residence()
             animal = self.__model.register_animal(animal_type, name, age, gender, place_residence)
             self.__view.print_add_success(animal)
         except CreateAnimalException as error:
             self.__view.print_message(error.message)
+        except Exception as error:
+            self.__view.print_message(error)
 
     def get_animal_type(self):
         """
@@ -117,6 +119,8 @@ class AnimalRegistryController(AnimalCommandsBehaviourController, AnimalTasksBeh
                 self.start_pack_actions(animal)
         except FindAnimalException as error:
             self.__view.print_message(error.message)
+        except Exception as error:
+            self.__view.print_message(error)
 
     def start_pet_actions(self, animal):
         self.__view.print_pet_menu(animal)
