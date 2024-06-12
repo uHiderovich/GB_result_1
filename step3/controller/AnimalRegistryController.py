@@ -9,8 +9,8 @@ class AnimalRegistryController(AnimalCommandsBehaviourController, AnimalTasksBeh
     def __init__(self, view, model):
         """
         Класс контроллера для регистрации животных
-        :param view:
-        :param model:
+        :param view: класс представления
+        :param model: класс модели
         """
         super().__init__()
         self.__view = view
