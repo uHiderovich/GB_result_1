@@ -52,12 +52,16 @@ class AnimalRegistryView(AnimalCommandsBehaviourView, AnimalTasksBehaviourView):
     def get_animal_id(self):
         return int(self.prompt('Введите id животного: '))
 
-    def get_animal_info_for_add(self):
-        animal_type = self.prompt("Введите тип животного: ").lower()
+    def get_animal_info_for_add(self, available_animals_types, available_genders):
+        available_animals_types_to_str = ', '.join(available_animals_types)
+        available_genders_to_str = ', '.join(available_genders)
+
+        animal_type = self.prompt(f"Введите тип животного. \n Доступные типы: {available_animals_types_to_str}").lower()
         name = self.prompt("Введите имя: ")
-        age = int(self.prompt("Введите возраст: "))
-        gender = self.prompt("Введите пол: ")
+        age = self.prompt("Введите возраст: ")
+        gender = self.prompt(f"Введите пол животного. \n Доступные полы: {available_genders_to_str}").lower()
         place_residence = self.prompt("Введите место проживания: ")
+
         return animal_type, name, age, gender, place_residence
 
     def print_add_success(self, animal):

@@ -21,7 +21,9 @@ class AnimalRegistryController(AnimalCommandsBehaviourController, AnimalTasksBeh
         Метод для регистрации животного
         :return: None
         """
-        new_animal_info = self.__view.get_animal_info_for_add()
+        available_types = self.__model.get_available_animals_types()
+        available_genders = self.__model.get_available_genders()
+        new_animal_info = self.__view.get_animal_info_for_add(available_types, available_genders)
         try:
             animal = self.__model.register_animal(*new_animal_info)
             self.__view.print_add_success(animal)
@@ -45,13 +47,13 @@ class AnimalRegistryController(AnimalCommandsBehaviourController, AnimalTasksBeh
         try:
             animal = self.__model.get_animal_by_id(animal_id)
             if self.__model.is_pet(self.__model.get_animal_type(animal)):
-                self.update_pet(animal)
+                self.start_pet_actions(animal)
             elif self.__model.is_pack(self.__model.get_animal_type(animal)):
-                self.update_pack(animal)
+                self.start_pack_actions(animal)
         except FindAnimalException as error:
             self.__view.print_message(error.message)
 
-    def update_pet(self, animal):
+    def start_pet_actions(self, animal):
         self.__view.print_pet_menu(animal)
         while True:
             command = self.__view.get_menu_command()
@@ -68,9 +70,9 @@ class AnimalRegistryController(AnimalCommandsBehaviourController, AnimalTasksBeh
                 exit()
             else:
                 self.__view.prind_error_command()
-                self.update_pet(animal)
+                self.start_pet_actions(animal)
 
-    def update_pack(self, animal):
+    def start_pack_actions(self, animal):
         self.__view.print_pack_animal_menu(animal)
         while True:
             command = self.__view.get_menu_command()
@@ -88,11 +90,12 @@ class AnimalRegistryController(AnimalCommandsBehaviourController, AnimalTasksBeh
                 self.do_task(animal)
             elif command == 'mian':
                 self.start()
+                break
             elif command == 'exit':
                 exit()
             else:
                 self.__view.prind_error_command()
-                self.update_pack(animal)
+                self.start_pack_actions(animal)
 
     def start(self):
         """

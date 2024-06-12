@@ -19,6 +19,7 @@ class AnimalRegistryService:
         self.__all_animals = []
         self.__pets_types = ['dog', 'cat', 'hamster']
         self.__pack_animals_types = ['horse', 'camel', 'donkey']
+        self.__genders = ['mail', 'femail']
 
     def register_animal(self, animal_type, name, age, gender, place_residence):
         """
@@ -30,18 +31,21 @@ class AnimalRegistryService:
         :param place_residence: место жительства животного
         :return: класс животного по animal_type
         """
-        animal = self.animal_factory(animal_type, name, age, gender, place_residence)
+        try:
+            self.validate_animal_info_for_register(animal_type, name, age, gender, place_residence)
 
-        if not animal:
-            raise CreateAnimalException("Не известный тип животного")
+            animal = self.animal_factory(animal_type, name, age, gender, place_residence)
 
-        if self.is_pet(animal_type):
-            self.__pets[animal.get_id()] = animal
-        if self.is_pack(animal_type):
-            self.__pack_animals[animal.get_id()] = animal
+            if self.is_pet(animal_type):
+                self.__pets[animal.get_id()] = animal
+            if self.is_pack(animal_type):
+                self.__pack_animals[animal.get_id()] = animal
 
-        self.__all_animals.append(animal)
-        return animal
+            self.__all_animals.append(animal)
+
+            return animal
+        except CreateAnimalException as error:
+            raise error
 
     def animal_factory(self, animal_type, name, age, gender, place_residence):
         """
@@ -109,3 +113,91 @@ class AnimalRegistryService:
             if animal.get_id() == animal_id:
                 return animal
         raise FindAnimalException(f"Животное с id {animal_id} не найдено!")
+
+    def get_available_animals_types(self):
+        """
+        Получить доступные типы животных
+        :return: list
+        """
+        return self.__pets_types + self.__pack_animals_types
+
+    def get_available_genders(self):
+        """
+        Получить доступные полы животных
+        :return: list
+        """
+        return self.__genders
+
+    def validate_animal_info_for_register(self, animal_type, name, age, gender, place_residence):
+        exception_text = (
+            self.validate_animal_type(animal_type) or
+            self.validate_age(animal_type, age) or
+            self.validate_name(name) or
+            self.validate_gender(gender) or
+            self.validate_place_residence(place_residence)
+        )
+
+        if exception_text:
+            raise CreateAnimalException(exception_text)
+
+    def validate_animal_type(self, animal_type):
+        """
+        Валидация типа животного
+        :param animal_type: тип животного
+        :return: str
+        """
+        if animal_type not in self.get_available_animals_types():
+            return "Не известный тип животного!"
+        else:
+            return None
+
+    def validate_age(self, animal_type, age):
+        """
+        Валидация возраста животного
+        :param animal_type: тип животного
+        :param age: возраст животного
+        :return: str
+        """
+        if not age.isdigit():
+            return "Возраст домашнего животного должен быть числом"
+        elif age < 0:
+            return "Возраст домашнего животного не может быть отрицательным"
+        elif self.is_pet(animal_type) and age > 20:
+            return "Домашнее животное не может быть старше 20 лет"
+        elif self.is_pack(animal_type) and age > 30:
+            return "Рабочее животное не может быть старше 30 лет"
+        else:
+            return None
+
+    def validate_name(self, name):
+        """
+        Валидация имени животного
+        :param name: имя животного
+        :return: str
+        """
+        if len(name) < 2:
+            return "Имя животного должно быть длиннее 2 символов"
+        else:
+            return None
+
+    def validate_gender(self, gender):
+        """
+        Валидация пола животного
+        :param gender: пол животного
+        :return: str
+        """
+        if gender not in self.get_available_genders():
+            return "Пол животного должен быть мальчик или девочка"
+        else:
+            return None
+
+    def validate_place_residence(self, place_residence):
+        """
+        Валидация места жительства животного
+        :param place_residence: место жительства животного
+        :return:
+        """
+        if len(place_residence) < 2:
+            return "Имя животного должно быть длиннее 2 символов"
+        else:
+            return None
