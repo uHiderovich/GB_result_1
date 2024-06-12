@@ -19,7 +19,7 @@ class AnimalRegistryService:
         self.__all_animals = []
         self.__pets_types = ['dog', 'cat', 'hamster']
         self.__pack_animals_types = ['horse', 'camel', 'donkey']
-        self.__genders = ['mail', 'femail']
+        self.__genders = ['male', 'femail']
 
     def register_animal(self, animal_type, name, age, gender, place_residence):
         """
@@ -32,8 +32,6 @@ class AnimalRegistryService:
         :return: класс животного по animal_type
         """
         try:
-            self.validate_animal_info_for_register(animal_type, name, age, gender, place_residence)
-
             animal = self.animal_factory(animal_type, name, age, gender, place_residence)
 
             if self.is_pet(animal_type):
