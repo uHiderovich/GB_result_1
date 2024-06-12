@@ -4,6 +4,8 @@ from model.exeptions.CommandException import CommandException
 
 
 class PackAnimal(HumanFriendsAnimal):
+    __animal_counter = 0
+
     def __init__(self, name, age, food_type, gender, place_residence):
         """
         Класс, описывающий животное, которое может выполнять задачи
@@ -16,6 +18,14 @@ class PackAnimal(HumanFriendsAnimal):
         super().__init__(name, age, food_type, gender, place_residence)
         self.tasks = {}
         self.current_task = None
+        PackAnimal.__animal_counter += 1
+
+    def get_animal_number(self):
+        """
+        Получить количество созданных животных
+        :return: int
+        """
+        return PackAnimal.__animal_counter
 
     def add_task(self, task_name):
         """

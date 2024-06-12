@@ -2,6 +2,8 @@ from model.domain.HumanFriendsAnimal import HumanFriendsAnimal
 
 
 class Pet(HumanFriendsAnimal):
+    __animal_counter = 0
+
     def __init__(self, name, age, food_type, gender, place_residence):
         """
         Класс домашних животных
@@ -12,6 +14,14 @@ class Pet(HumanFriendsAnimal):
         :param place_residence: место жительства
         """
         super().__init__(name, age, food_type, gender, place_residence)
+        Pet.__animal_counter += 1
+
+    def get_animal_number(self):
+        """
+        Получить количество созданных животных
+        :return: int
+        """
+        return Pet.__animal_counter
 
     def play(self):
         """

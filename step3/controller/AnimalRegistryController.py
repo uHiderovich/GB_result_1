@@ -166,6 +166,19 @@ class AnimalRegistryController(AnimalCommandsBehaviourController, AnimalTasksBeh
                 self.__view.prind_error_command()
                 self.start_pack_actions(animal)
 
+    def show_animals_number_by_group(self):
+        """
+        Метод для вывода количества животных по типу
+        :return: None
+        """
+        available_groups = self.__model.get_available_groups()
+        group = self.__view.print_get_animal_group_type(available_groups)
+        if not (group in available_groups):
+            self.__view.print_message('Нет такой группы животных!')
+            return self.show_animals_number_by_group()
+        number = self.__model.get_animals_number_by_group(group)
+        self.__view.print_group_number(group, number)
+
     def start(self):
         """
         Метод для запуска контроллера
@@ -181,6 +194,8 @@ class AnimalRegistryController(AnimalCommandsBehaviourController, AnimalTasksBeh
             elif command == 'show_by_id':
                 self.show_selected_animal()
                 break
+            elif command == 'show_number_by_group':
+                self.show_animals_number_by_group()
             elif command == 'exit':
                 exit()
             else:

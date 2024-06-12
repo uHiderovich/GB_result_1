@@ -123,6 +123,28 @@ class AnimalRegistryService:
         """
         return self.__genders
 
+    def get_animals_number_by_group(self, group):
+        """
+        Получить количество домашних животных по типу
+        :return: int
+        """
+        animals = self.__pets if group == 'pets' else self.__pack_animals
+
+        if len(animals) == 0:
+            return 0
+        else:
+            # Тут разумеется достаточно получить длину animals,
+            # но в задании кажется намек на статичнский класс, для демонстрации понимания ООП
+            # по-этому вот такая загагулина:)
+            return animals[0].get_animal_number()
+
+    def get_available_groups(self):
+        """
+        Получить доступные типы групп животных
+        :return: list
+        """
+        return ['pets', 'pack_animals']
+
     def validate_animal_info_for_register(self, animal_type, name, age, gender, place_residence):
         exception_text = (
             self.validate_animal_type(animal_type) or

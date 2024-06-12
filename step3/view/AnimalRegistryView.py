@@ -12,6 +12,7 @@ class AnimalRegistryView(AnimalCommandsBehaviourView, AnimalTasksBehaviourView):
         print('- add для добавления животного в реестр')
         print('- show_all для просмотра всех животных в реестре')
         print('- show_by_id для просмотра животного по его id')
+        print('- show_number_by_group для получения количества животных по группе')
         print('- exit для выхода из программы')
         print('-------------------')
 
@@ -68,6 +69,13 @@ class AnimalRegistryView(AnimalCommandsBehaviourView, AnimalTasksBehaviourView):
 
     def print_get_animal_place_residence(self):
         return self.prompt('Введите место проживания животного: ')
+
+    def print_get_animal_group_type(self, available_groups):
+        available_groups_to_str = ', '.join(available_groups)
+        return self.prompt(f'Введите тип группы животного. \nДоступные группы {available_groups_to_str}\n')
+
+    def print_group_number(self, group, number):
+        print(f'Количество животных в группе {group}: {number}')
 
     def print_add_success(self, animal):
         print(f'Животное: {animal} успешно добавлено!')
